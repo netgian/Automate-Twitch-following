@@ -14,8 +14,6 @@ class TwitchFollower:
             "accept-encoding": "br, gzip, deflate",
         }
 
-        self._follow_channel()
-
     def _update_header(self, token):
         self.HEADERS['Authorization'] = 'OAuth ' + token
 
@@ -39,7 +37,7 @@ class TwitchFollower:
             print("User not found")
             return False
 
-    def _follow_channel(self):
+    def run(self):
         channel_id = self._get_channel_id()
         payload = r'[{"operationName":"FollowButton_FollowUser",' \
                   r'"variables":{"input":{"disableNotifications":false,"targetID":"' + channel_id + r'"}},' \
@@ -54,4 +52,4 @@ class TwitchFollower:
 
 if __name__ == '__main__':
     channel_name = input("Twitch channel: ")
-    TwitchFollower(channel_name)
+    TwitchFollower(channel_name).run()
